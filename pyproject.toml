@@ -12,6 +12,7 @@ python = "^3.10"
 fastapi = "^0.95.1"
 celery = "^5.2.7"
 uvicorn = "^0.22.0"
+redis = "^4.5.4"
 
 
 [build-system]

@@ -12,5 +12,7 @@ if __name__ == '__main__':
     }
 
     task = app.send_task(
-        'main.prompting', [params]
+        'prompting', [params['prompt'], params['test']]
     )
+
+    print(task)
