@@ -27,7 +27,7 @@ app.add_middleware(
 
 serverinfo = {
     "version": config.version,
-    "author": config.author
+    "manager": config.manager
 }
 
 

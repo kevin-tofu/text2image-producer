@@ -15,4 +15,4 @@ RUN curl -sSL https://install.python-poetry.org/  | python && \
 RUN poetry install --no-root
 EXPOSE 80
 
-CMD ["python", "./main.py"]
+CMD ["python", "./server.py"]
