@@ -33,11 +33,11 @@ router = APIRouter(prefix="")
 #     return tasks.active()
 
 
-@router.get(
+@router.post(
     '/prompt',
     description="",
 )
-def get_prompt(
+def post_prompt(
     params: dict = Depends(routes_depends.params_diffuser)
 ):
     """
@@ -51,6 +51,39 @@ def get_prompt(
         kwargs=params_dict
     )
     return dict(task_id=task.task_id)
+
+
+
+@router.get(
+    '/prompt/{task_id}',
+    description="",
+)
+def get_prompt(
+    task_id: str
+):
+    """
+    """
+    
+    task = AsyncResult(task_id)
+    return task.info
+
+
+@router.delete(
+    '/prompt/{task_id}',
+    description="",
+)
+def delete_prompt(
+    task_id: str
+):
+    """
+    """
+    
+    task = AsyncResult(task_id)
+    # task.info
+    task.revoke(terminate=True)
+
+
+    return 'revoked'
 
 
 @router.get(

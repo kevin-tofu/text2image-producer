@@ -8,7 +8,8 @@ def get_file_extension(fname: str):
     extension = os.path.splitext(fname)[-1][1::]
     return extension
 
-def remove_file(path_file: str, sleep_sec: int=5) -> None:
+
+def remove_file(path_file: str, sleep_sec: int=60) -> None:
 
     # logger.info('timer')
     time.sleep(sleep_sec)
