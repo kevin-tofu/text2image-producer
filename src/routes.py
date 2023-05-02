@@ -8,9 +8,10 @@ from fastapi import BackgroundTasks, Response
 from fastapi import WebSocket
 # from fastapi.responses import HTMLResponse
 from celery.result import AsyncResult
+import dataclasses  # import dataclass, asdict
 
 
-from src.routes_depends import params_diffusion
+from src import routes_depends
 from src.config import config_org as config
 from src.publisher import app
 from src import tools
@@ -20,15 +21,16 @@ router = APIRouter(prefix="")
 # 
 
 
-@router.get('/')
-def getTasks():
-    tasks = app.control.inspect()
-    return tasks.active()
+# @router.get('/')
+# def getTasks():
+#     tasks = app.control.inspect()
+#     return tasks.active()
 
-@router.delete('/')
-def getTasks():
-    tasks = app.control.inspect()
-    return tasks.active()
+
+# @router.delete('/')
+# def getTasks():
+#     tasks = app.control.inspect()
+#     return tasks.active()
 
 
 @router.get(
@@ -36,13 +38,17 @@ def getTasks():
     description="",
 )
 def get_prompt(
-    params: dict = Depends(params_diffusion)
+    params: dict = Depends(routes_depends.params_diffuser)
 ):
     """
     """
-
+    
+    params_dict = dataclasses.asdict(params)
+    # print('params:', params_dict)
     task = app.send_task(
-        'main.prompt', [params]
+        'main.prompt', 
+        args=[],
+        kwargs=params_dict
     )
     return dict(task_id=task.task_id)
 
@@ -100,7 +106,7 @@ async def post_image(
     bgtask.add_task(tools.remove_file, image_path)
 
 
-@app.websocket("/image/{task_id}/status")
+@router.websocket("/image/{task_id}/status")
 async def websocket_endpoint(websocket: WebSocket, task_id: str):
 
     await websocket.accept()

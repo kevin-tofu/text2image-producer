@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     res = app.send_task(
         'prompt', 
-        args=[params['prompt'], params['test']],
+        args=[],
         kwargs=params
     )
 

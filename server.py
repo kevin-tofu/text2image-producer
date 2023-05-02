@@ -31,6 +31,7 @@ serverinfo = {
 }
 
 
+# https://qiita.com/Seo-4d696b75/items/6fc3792d034c2a01b830
 # from fastapi.security import OAuth2PasswordBearer
 # from firebase_admin import auth
 # oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
