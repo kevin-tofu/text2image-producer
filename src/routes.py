@@ -38,12 +38,14 @@ router = APIRouter(prefix="")
     description="",
 )
 def post_prompt(
-    params: dict = Depends(routes_depends.params_diffuser)
+    # params: dict = Depends(routes_depends.params_diffuser)
+    params: routes_depends.params_diffuser=Depends(routes_depends.params_diffuser)
 ):
     """
     """
     
     params_dict = dataclasses.asdict(params)
+    # print(type(params))
     # print('params:', params_dict)
     task = app.send_task(
         'main.prompt', 
